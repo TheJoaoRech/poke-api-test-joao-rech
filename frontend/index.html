@@ -9,32 +9,47 @@
 </head>
 
 <body>
-    <div class="container">
+    <div class="app">
         <header class="header">
-            <h1>🔴 Pokédex</h1>
+            <div class="header-content">
+                <img src="https://encurtador.com.br/qgls" alt="Company Logo" class="header-logo">
+                <h1 class="header-title"></h1>
+            </div>
+            <p class="header-welcome">Welcome! I'm João Rech, explore the Pokémon world by searching or clicking on a
+                card below!</p>
+        </header>
+
+        <section class="search-section">
             <form class="search-form" id="searchForm">
                 <input type="text" id="searchInput" placeholder="Search Pokémon by name or ID..." class="search-input">
                 <button type="submit" class="search-btn">Search</button>
             </form>
-        </header>
+        </section>
 
         <div id="errorBanner" class="error-banner hidden">
             <p id="errorMessage"></p>
-            <button class="error-close">✕</button>
+            <button class="error-close"
+                onclick="document.getElementById('errorBanner').classList.add('hidden')">✕</button>
         </div>
 
         <main class="main-content">
-            <section class="pokemon-list-section">
-                <h2>Pokémon List</h2>
-                <div id="pokemonGrid" class="pokemon-grid">
-                    <div class="loading">Loading...</div>
-                </div>
-            </section>
+            <div class="pokemon-list-header">
+                <h2>Here are all the Pokémon available in our system:</h2>
+            </div>
+            <div id="pokemonGrid" class="pokemon-grid">
+                <div class="loading">Loading...</div>
+            </div>
         </main>
+
+        <div class="pagination" id="pagination" style="display: none;">
+            <button id="prevBtn" class="pagination-btn">← Previous</button>
+            <span class="pagination-info" id="paginationInfo"></span>
+            <button id="nextBtn" class="pagination-btn">Next →</button>
+        </div>
 
         <div id="pokemonModal" class="modal hidden">
             <div class="modal-content">
-                <button class="modal-close">✕</button>
+                <button class="modal-close" onclick="closeModal()">✕</button>
                 <div id="pokemonDetails"></div>
             </div>
         </div>
