@@ -4,6 +4,9 @@ import cors from 'cors';
 import morgan from 'morgan';
 import rateLimit from 'express-rate-limit';
 import pokemonRoutes from './routes/pokemonRoutes';
+import swaggerUi from 'swagger-ui-express';
+import fs from 'fs';
+import yaml from 'js-yaml';
 
 const app = express();
 const PORT = process.env.PORT;
@@ -18,6 +21,10 @@ const limiter = rateLimit({
   },
 });
 
+const swaggerFile = fs.readFileSync('./src/docs/swagger.yaml', 'utf8');
+const swaggerDocument = yaml.load(swaggerFile) as object;
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+
 app.use(limiter);
 app.use(cors({ origin: CORS_ORIGIN }));
 app.use(express.json());
@@ -31,6 +38,7 @@ app.get('/', (req, res) => {
 
 app.listen(PORT, () => {
   console.log(`The server is running on port ${PORT}!`);
+  console.log(`Swagger docs available at http://localhost:${PORT}/api-docs`);
 });
 
 export default app;

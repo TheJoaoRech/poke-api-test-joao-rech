@@ -1,0 +1,221 @@
+openapi: 3.0.0
+info:
+  title: Pokemon API
+  version: 1.0.0
+  description: API for fetching Pokemon data
+servers:
+  - url: http://localhost:3001/api
+tags:
+  - name: Pokemon
+    description: Endpoints for Pokemon data
+paths:
+  /pokemon:
+    get:
+      tags:
+        - Pokemon
+      summary: Get a list of Pokémon
+      parameters:
+        - in: query
+          name: limit
+          schema:
+            type: integer
+            default: 20
+          description: Number of Pokémon to return
+        - in: query
+          name: offset
+          schema:
+            type: integer
+            default: 0
+          description: Number of Pokémon to skip
+      responses:
+        '200':
+          description: List of Pokémon
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/PokemonListResponse'
+              examples:
+                example1:
+                  value:
+                    count: 1281
+                    results:
+                      - name: bulbasaur
+                        url: https://pokeapi.co/api/v2/pokemon/1/
+                      - name: ivysaur
+                        url: https://pokeapi.co/api/v2/pokemon/2/
+        '400':
+          description: Invalid parameters
+        '429':
+          description: Too many requests
+  /pokemon/id/{id}:
+    get:
+      tags:
+        - Pokemon
+      summary: Get Pokémon by ID
+      parameters:
+        - in: path
+          name: id
+          required: true
+          schema:
+            type: integer
+          description: Pokémon ID
+      responses:
+        '200':
+          description: Pokémon data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pokemon'
+              examples:
+                example1:
+                  value:
+                    id: 25
+                    name: pikachu
+                    base_experience: 112
+                    height: 4
+                    weight: 60
+                    abilities:
+                      - ability:
+                          name: static
+                          url: https://pokeapi.co/api/v2/ability/9/
+                        is_hidden: false
+                        slot: 1
+                    sprites:
+                      front_default: https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/25.png
+                      back_default: https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/25.png
+                    types:
+                      - slot: 1
+                        type:
+                          name: electric
+                          url: https://pokeapi.co/api/v2/type/13/
+        '400':
+          description: Invalid ID
+        '404':
+          description: Pokémon not found
+        '429':
+          description: Too many requests
+  /pokemon/name/{name}:
+    get:
+      tags:
+        - Pokemon
+      summary: Get Pokémon by name
+      parameters:
+        - in: path
+          name: name
+          required: true
+          schema:
+            type: string
+          description: Pokémon name
+      responses:
+        '200':
+          description: Pokémon data
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Pokemon'
+              examples:
+                example1:
+                  value:
+                    id: 132
+                    name: ditto
+                    base_experience: 101
+                    height: 3
+                    weight: 40
+                    abilities:
+                      - ability:
+                          name: limber
+                          url: https://pokeapi.co/api/v2/ability/7/
+                        is_hidden: false
+                        slot: 1
+                    sprites:
+                      front_default: https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/132.png
+                      back_default: https://raw.githubusercontent.com/PokeAPI/sprites/master/sprites/pokemon/back/132.png
+                    types:
+                      - slot: 1
+                        type:
+                          name: normal
+                          url: https://pokeapi.co/api/v2/type/1/
+        '400':
+          description: Invalid name
+        '404':
+          description: Pokémon not found
+        '429':
+          description: Too many requests
+components:
+  schemas:
+    PokemonListItem:
+      type: object
+      properties:
+        name:
+          type: string
+          description: Pokémon name
+        url:
+          type: string
+          description: URL to Pokémon details
+    PokemonListResponse:
+      type: object
+      properties:
+        count:
+          type: integer
+          description: Total number of Pokémon
+        results:
+          type: array
+          items:
+            $ref: '#/components/schemas/PokemonListItem'
+    Pokemon:
+      type: object
+      properties:
+        id:
+          type: integer
+          description: Pokémon ID
+        name:
+          type: string
+          description: Pokémon name
+        base_experience:
+          type: integer
+          description: Base experience gained for defeating this Pokémon
+        height:
+          type: integer
+          description: Height of the Pokémon
+        weight:
+          type: integer
+          description: Weight of the Pokémon
+        abilities:
+          type: array
+          items:
+            type: object
+            properties:
+              ability:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  url:
+                    type: string
+              is_hidden:
+                type: boolean
+              slot:
+                type: integer
+        sprites:
+          type: object
+          properties:
+            front_default:
+              type: string
+              nullable: true
+            back_default:
+              type: string
+              nullable: true
+        types:
+          type: array
+          items:
+            type: object
+            properties:
+              slot:
+                type: integer
+              type:
+                type: object
+                properties:
+                  name:
+                    type: string
+                  url:
+                    type: string
