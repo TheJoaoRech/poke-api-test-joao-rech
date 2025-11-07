@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pokédex</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+
+<body>
+    <div class="container">
+        <header class="header">
+            <h1>🔴 Pokédex</h1>
+            <form class="search-form" id="searchForm">
+                <input type="text" id="searchInput" placeholder="Search Pokémon by name or ID..." class="search-input">
+                <button type="submit" class="search-btn">Search</button>
+            </form>
+        </header>
+
+        <div id="errorBanner" class="error-banner hidden">
+            <p id="errorMessage"></p>
+            <button class="error-close">✕</button>
+        </div>
+
+        <main class="main-content">
+            <section class="pokemon-list-section">
+                <h2>Pokémon List</h2>
+                <div id="pokemonGrid" class="pokemon-grid">
+                    <div class="loading">Loading...</div>
+                </div>
+            </section>
+        </main>
+
+        <div id="pokemonModal" class="modal hidden">
+            <div class="modal-content">
+                <button class="modal-close">✕</button>
+                <div id="pokemonDetails"></div>
+            </div>
+        </div>
+    </div>
+
+    <script src="api.js"></script>
+    <script src="app.js"></script>
+</body>
+
+</html>
