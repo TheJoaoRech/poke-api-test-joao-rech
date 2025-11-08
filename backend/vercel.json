@@ -1,0 +1,24 @@
+{
+  "version": 2,
+  "builds": [
+    {
+      "src": "src/app.ts",
+      "use": "@vercel/node"
+    }
+  ],
+  "routes": [
+    {
+      "src": "/(.*)",
+      "dest": "src/app.ts"
+    }
+  ],
+  "env": {
+    "NODE_ENV": "production",
+    "PORT": "3001",
+    "POKEAPI_BASE_URL": "https://pokeapi.co/api/v2",
+    "POKEAPI_POKEMON_ENDPOINT": "/pokemon",
+    "DEFAULT_LIMIT": "20",
+    "MAX_LIMIT": "100",
+    "REJECT_UNAUTHORIZED": "false"
+  }
+}

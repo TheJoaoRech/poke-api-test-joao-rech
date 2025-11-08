@@ -1,0 +1,6 @@
+src/tests/
+coverage/
+*.test.ts
+*.spec.ts
+.env.test
+jest.config.js
