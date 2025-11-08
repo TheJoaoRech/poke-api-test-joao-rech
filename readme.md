@@ -109,6 +109,53 @@ teste-backend-rech/
    - Python: **http://localhost:8000**
    - http-server: **http://localhost:8080**
 
+## 🧪 Testing
+
+### Running Unit Tests
+
+The backend includes comprehensive unit tests using **Jest** with TypeScript support.
+
+1. Navigate to the backend directory:
+
+   ```bash
+   cd backend
+   ```
+
+2. Run all tests:
+
+   ```bash
+   npm test
+   ```
+
+3. Run tests in watch mode (auto-rerun on file changes):
+
+   ```bash
+   npm run test:watch
+   ```
+
+4. Generate coverage report:
+
+   ```bash
+   npm run test:coverage
+   ```
+
+### Test Structure
+
+```
+backend/src/tests/
+├── unit/
+│   ├── services/
+│   │   └── pokemon.service.test.ts      # Service layer tests
+│   ├── controllers/
+│   │   └── pokemon.controller.test.ts   # Controller tests
+│   ├── middlewares/
+│   │   └── validatePokemonParams.test.ts # Middleware validation tests
+│   └── integration.test.ts              # Integration tests
+└── mocks/
+    ├── express.mock.ts                  # Express mocks
+    └── pokemonService.mock.ts           # Service mocks
+```
+
 ## 🌐 API Endpoints
 
 ### List Pokémons (paginated)
