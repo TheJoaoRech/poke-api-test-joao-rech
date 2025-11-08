@@ -7,6 +7,7 @@ import pokemonRoutes from './routes/pokemonRoutes';
 import swaggerUi from 'swagger-ui-express';
 import fs from 'fs';
 import yaml from 'js-yaml';
+import path from 'path';
 
 const app = express();
 const PORT = process.env.PORT;
@@ -21,9 +22,14 @@ const limiter = rateLimit({
   },
 });
 
-const swaggerFile = fs.readFileSync('./src/docs/swagger.yaml', 'utf8');
-const swaggerDocument = yaml.load(swaggerFile) as object;
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+try {
+  const swaggerPath = path.join(__dirname, 'docs', 'swagger.yaml');
+  const swaggerFile = fs.readFileSync(swaggerPath, 'utf8');
+  const swaggerDocument = yaml.load(swaggerFile) as object;
+  app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDocument));
+} catch (error) {
+  console.error('Failed to load Swagger documentation:', error);
+}
 
 app.use(limiter);
 app.use(cors({ origin: CORS_ORIGIN }));

@@ -6,7 +6,7 @@
   "scripts": {
     "start": "node dist/app.js",
     "dev": "nodemon src/app.ts",
-    "build": "tsc",
+    "build": "tsc && node -e \"const fs=require('fs'), path=require('path'); fs.mkdirSync('dist/docs', {recursive:true}); fs.copyFileSync('src/docs/swagger.yaml', 'dist/docs/swagger.yaml');\"",
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
