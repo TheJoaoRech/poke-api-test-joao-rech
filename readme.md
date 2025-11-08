@@ -238,7 +238,100 @@ The application is fully responsive:
 - Cache headers configured
 - Parameter validation
 
-## 📝 Commit Structure
+## � Deployment
+
+### Backend - Vercel
+
+The backend is deployed on **Vercel** as a serverless function.
+
+**Live URL:** [https://poke-api-test-joao-rech.vercel.app/](https://poke-api-test-joao-rech.vercel.app/)
+
+#### Deploy Steps:
+
+1. Install Vercel CLI (optional):
+
+   ```bash
+   npm install -g vercel
+   ```
+
+2. Login to Vercel:
+
+   ```bash
+   vercel login
+   ```
+
+3. Deploy from backend directory:
+   ```bash
+   cd backend
+   vercel
+   ```
+
+#### Configuration Files:
+
+- **`backend/vercel.json`** - Vercel configuration with environment variables
+- **`backend/.vercelignore`** - Files to ignore in deployment (tests, coverage)
+- **`backend/api/index.ts`** - Serverless function entry point
+
+#### Environment Variables on Vercel:
+
+The following environment variables are configured in `vercel.json`:
+
+```json
+{
+  "NODE_ENV": "production",
+  "API_BASE_PATH": "/api/v1",
+  "CORS_ORIGIN": "*",
+  "PORT": "3000",
+  "POKEAPI_BASE_URL": "https://pokeapi.co/api/v2",
+  "POKEAPI_POKEMON_ENDPOINT": "/pokemon",
+  "DEFAULT_LIMIT": "20",
+  "MAX_LIMIT": "100",
+  "REJECT_UNAUTHORIZED": "false"
+}
+```
+
+### Frontend - GitHub Pages
+
+The frontend is deployed on **GitHub Pages** with automatic deployment via GitHub Actions.
+
+**Live URL:** [https://thejoaorech.github.io/poke-api-test-joao-rech/](https://thejoaorech.github.io/poke-api-test-joao-rech/)
+
+#### Deploy Steps:
+
+1. The deployment is **automatic** via GitHub Actions
+2. Every push to `main` branch with changes in `frontend/` triggers a new deploy
+3. The workflow file is located at `.github/workflows/deploy-frontend.yml`
+
+#### Manual Deployment:
+
+You can also trigger deployment manually:
+
+1. Go to repository **Actions** tab
+2. Select **"Deploy Frontend to GitHub Pages"** workflow
+3. Click **"Run workflow"** button
+4. Select `main` branch and confirm
+
+#### Configuration Files:
+
+- **`.github/workflows/deploy-frontend.yml`** - GitHub Actions workflow for automatic deployment
+- **`frontend/.nojekyll`** - Tells GitHub Pages to process all files
+
+### API Endpoints (Production):
+
+All backend endpoints are available at the base URL:
+
+```
+https://poke-api-test-joao-rech.vercel.app/api/v1/pokemon
+```
+
+**Examples:**
+
+- List Pokémons: `GET /api/v1/pokemon?limit=20&offset=0`
+- Get by ID: `GET /api/v1/pokemon/id/25`
+- Get by Name: `GET /api/v1/pokemon/name/pikachu`
+- API Docs: `GET /api-docs`
+
+## �📝 Commit Structure
 
 Following Conventional Commits standard:
 
