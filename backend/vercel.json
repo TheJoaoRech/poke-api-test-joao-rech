@@ -14,6 +14,9 @@
   ],
   "env": {
     "NODE_ENV": "production",
+    "API_BASE_PATH": "/api/v1",
+    "CORS_ORIGIN": "*",
+    "PORT": "3000",
     "POKEAPI_BASE_URL": "https://pokeapi.co/api/v2",
     "POKEAPI_POKEMON_ENDPOINT": "/pokemon",
     "DEFAULT_LIMIT": "20",
