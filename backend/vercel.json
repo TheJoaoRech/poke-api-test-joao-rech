@@ -1,20 +1,9 @@
 {
   "version": 2,
-  "builds": [
-    {
-      "src": "dist/app.js",
-      "use": "@vercel/node"
-    }
-  ],
-  "routes": [
-    {
-      "src": "/(.*)",
-      "dest": "dist/app.js"
-    }
-  ],
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
   "env": {
     "NODE_ENV": "production",
-    "PORT": "3001",
     "POKEAPI_BASE_URL": "https://pokeapi.co/api/v2",
     "POKEAPI_POKEMON_ENDPOINT": "/pokemon",
     "DEFAULT_LIMIT": "20",
