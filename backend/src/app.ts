@@ -36,9 +36,11 @@ app.get('/', (req, res) => {
   res.json({ message: 'Pokemon API is running!' });
 });
 
-app.listen(PORT, () => {
-  console.log(`The server is running on port ${PORT}!`);
-  console.log(`Swagger docs available at http://localhost:${PORT}/api-docs`);
-});
+if (process.env.VERCEL !== '1') {
+  app.listen(PORT, () => {
+    console.log(`The server is running on port ${PORT}!`);
+    console.log(`Swagger docs available at http://localhost:${PORT}/api-docs`);
+  });
+}
 
 export default app;
