@@ -1,4 +1,4 @@
-const API_BASE_URL = 'http://localhost:3001/api';
+const API_BASE_URL = 'https://poke-api-test-joao-rech.vercel.app/api/v1';
 
 const api = {
     getList: async (limit = 20, offset = 0) => {
